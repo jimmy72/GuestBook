@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ejb-jar xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+         http://xmlns.jcp.org/xml/ns/javaee/ejb-jar_3_2.xsd"
+         version="3.2">
+    <enterprise-beans>
+        <session>
+            <ejb-name>MessageRepository</ejb-name>
+            <business-local>
+                be.jimmygodin.ejb.MessageRepositoryLocal
+            </business-local>
+            <ejb-class>be.jimmygodin.ejb.MessageRepository</ejb-class>
+            <session-type>Singleton</session-type>
+        </session>
+        <session>
+            <ejb-name>MessageService</ejb-name>
+            <business-local>
+                be.jimmygodin.ejb.MessageServiceLocal
+            </business-local>
+            <ejb-class>be.jimmygodin.ejb.MessageService</ejb-class>
+            <session-type>Stateless</session-type>
+        </session>
+        <session>
+            <ejb-name>MessageRestEndpoint</ejb-name>
+            <ejb-class>be.jimmygodin.ejb.MessageRestEndpoint</ejb-class>
+            <session-type>Stateless</session-type>
+        </session>
+    </enterprise-beans>
+</ejb-jar>
