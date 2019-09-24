@@ -16,10 +16,10 @@ public class MessageRepository implements MessageRepositoryLocal {
     private EntityManager entityManager;
 
     @Override
-    public long addMessage(Message message) {
+    public Message addMessage(Message message) {
         entityManager.persist(message);
         entityManager.flush();
-        return message.getId();
+        return message;
     }
 
     @Override
@@ -31,5 +31,11 @@ public class MessageRepository implements MessageRepositoryLocal {
     public List<Message> getAllMessages() {
         TypedQuery<Message> query = entityManager.createNamedQuery("findAllMessages", Message.class);
         return query.getResultList();
+    }
+
+    @Override
+    public Message updateMessage(Message message) {
+        entityManager.merge(message);
+        return message;
     }
 }

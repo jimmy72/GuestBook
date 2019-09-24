@@ -12,7 +12,7 @@ public class MessageService implements MessageServiceLocal {
     private MessageRepositoryLocal messageRepositoryLocal;
 
     @Override
-    public long addMessage(Message message) {
+    public Message addMessage(Message message) {
         return messageRepositoryLocal.addMessage(message);
     }
 
@@ -24,5 +24,10 @@ public class MessageService implements MessageServiceLocal {
     @Override
     public List<Message> getAllMessages() {
         return messageRepositoryLocal.getAllMessages();
+    }
+
+    @Override
+    public Message updateMessage(Message message) {
+        return messageRepositoryLocal.updateMessage(message);
     }
 }

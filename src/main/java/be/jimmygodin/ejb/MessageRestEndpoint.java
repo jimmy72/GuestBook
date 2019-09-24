@@ -21,7 +21,7 @@ public class MessageRestEndpoint {
     private MessageServiceLocal messageServiceLocal;
 
     @GET
-    @Path("{id}")
+    @Path("{id:\\d+}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getMessage(@PathParam("id") long id) {
         Optional<Message> message = messageServiceLocal.getMessageById(id);
@@ -44,8 +44,8 @@ public class MessageRestEndpoint {
         if(message.getId() != 0) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
-        Long id = messageServiceLocal.addMessage(message);
-        URI uri = URI.create(uriInfo.getPath() + "/" + id);
+        message = messageServiceLocal.addMessage(message);
+        URI uri = URI.create(uriInfo.getPath() + "/" + message.getId());
 
         return Response.created(uri).entity("").build();
     }
@@ -58,10 +58,22 @@ public class MessageRestEndpoint {
         if(StringUtils.isBlank(name) || StringUtils.isBlank(message)) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
-        Long id = messageServiceLocal.addMessage(new Message(name, message));
-        URI uri = URI.create(uriInfo.getBaseUri() + "messages" +"/" + id);
+        Message msg = messageServiceLocal.addMessage(new Message(name, message));
+        URI uri = URI.create(uriInfo.getBaseUri() + "messages" +"/" + msg.getId());
 
         return Response.created(uri).entity("").build();
+    }
+
+    @PUT
+    @Path("{id:\\d+}")
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public Response updateMessage(@PathParam("id") int id, Message message) {
+        if(message.getId() != id) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+        message = messageServiceLocal.updateMessage(message);
+
+        return Response.noContent().entity("").build();
     }
 
 }

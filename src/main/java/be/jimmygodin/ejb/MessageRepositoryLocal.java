@@ -7,7 +7,8 @@ import java.util.Optional;
 
 @Local
 public interface MessageRepositoryLocal {
-    public long addMessage(Message message);
+    public Message addMessage(Message message);
     public Optional<Message> getMessageById(long id);
     public List<Message> getAllMessages();
+    public Message updateMessage(Message message);
 }
